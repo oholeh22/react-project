@@ -28,6 +28,7 @@ import AddUser from "./components/AddUser";
       ]
       }
       this.addUser = this.addUser.bind(this)
+      this.deleteUser = this.deleteUser.bind(this)
     }
 
     render () {
@@ -35,13 +36,19 @@ import AddUser from "./components/AddUser";
       <div >
         <Header title="Список пользователей"/>
         <main>
-          <Users users={this.state.users} />
+          <Users users={this.state.users} onDelete={this.deleteUser} />
         </main>
         <aside>
           <AddUser onAdd={this.addUser}/>
         </aside>
     </div>
     )
+    }
+
+    deleteUser(id) {
+      this.setState ({
+        users: this.state.users.filter((el) => el.id !== id)
+      })
     }
 
     addUser(user) {

@@ -3,22 +3,20 @@ import User from "./User"
 
 class Users extends React.Component {
     
-    render() {
-        if(this.props.users.length > 0)
-      return (
-        <div>
-            {this.props.users.map((el) => (
-              <User key={el.id} user={el}/>
-            ))}
-        </div>
-      )
-      else
-      return (
-        <div className="user">
-            <h3>Пользователей нет</h3>
-        </div>
-      )
-    }
+  render() {
+    const { users, onDelete } = this.props;
+    return users.length > 0 ? (
+      <div>
+        {users.map((el) => (
+          <User onDelete={onDelete} key={el.id} user={el} />
+        ))}
+      </div>
+    ) : (
+      <div className="user">
+        <h3>Пользователей нет</h3>
+      </div>
+    );
+  }
 
    
 
