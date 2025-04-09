@@ -23,7 +23,7 @@ class User extends React.Component {
             <p>{user.bio}</p>
             <b>{user.isHappy ? 'Счастлив :)' : 'Не особо :('}</b>
 
-            {this.state.editForm && <AddUser />}
+            {this.state.editForm && <AddUser user={this.props.user} onAdd={this.props.onEdit} />}
           </div>
         );
       }
