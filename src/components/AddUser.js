@@ -1,11 +1,12 @@
 import React from "react";
+import PixelButton from "./PixelButton";
 
 class AddUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       bio: "",
       age: 1,
       isHappy: false,
@@ -27,18 +28,31 @@ class AddUser extends React.Component {
     }
   }
 
+  handleSubmit = () => {
+    const userAdd = { ...this.state };
+    if (this.props.user) userAdd.id = this.props.user.id;
+    this.props.onAdd(userAdd);
+    this.setState({
+      first_name: "",
+      last_name: "",
+      bio: "",
+      age: 1,
+      isHappy: false,
+    });
+  };
+
   render() {
     return (
-      <form ref={(el) => (this.myForm = el)}>
+      <form>
         <input
           placeholder="Имя"
-          value={this.state.firstName}
-          onChange={(e) => this.setState({ firstName: e.target.value })}
+          value={this.state.first_name}
+          onChange={(e) => this.setState({ first_name: e.target.value })}
         />
         <input
           placeholder="Фамилия"
-          value={this.state.lastName}
-          onChange={(e) => this.setState({ lastName: e.target.value })}
+          value={this.state.last_name}
+          onChange={(e) => this.setState({ last_name: e.target.value })}
         />
         <textarea
           placeholder="Биография"
@@ -49,7 +63,7 @@ class AddUser extends React.Component {
           placeholder="Возраст"
           type="number"
           value={this.state.age}
-          onChange={(e) => this.setState({ age: +e.target.value })}
+          onChange={(e) => this.setState({ age: e.target.value })}
         />
         <label htmlFor="isHappy">Счастлив?</label>
         <input
@@ -58,23 +72,10 @@ class AddUser extends React.Component {
           checked={this.state.isHappy}
           onChange={(e) => this.setState({ isHappy: e.target.checked })}
         />
-        <button
-          type="button"
-          onClick={() => {
-            const userAdd = { ...this.state };
-            if (this.props.user) userAdd.id = this.props.user.id;
-            this.props.onAdd(userAdd);
-            this.setState({
-              firstName: "",
-              lastName: "",
-              bio: "",
-              age: 1,
-              isHappy: false,
-            });
-          }}
-        >
+
+        <PixelButton onClick={this.handleSubmit}>
           {this.props.user ? "Сохранить" : "Добавить"}
-        </button>
+        </PixelButton>
       </form>
     );
   }
